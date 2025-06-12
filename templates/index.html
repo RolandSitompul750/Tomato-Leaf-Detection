@@ -64,9 +64,8 @@ Pengenalan Penyakit Daun Tomat
         document.getElementById('upload-label').textContent = 'Nama file: ' + fileName;
     });
 
-    // Bagian yang perlu diperiksa/diubah untuk pengiriman FormData
     document.getElementById('predictButton').addEventListener('click', function() {
-        const imageUploadInput = document.getElementById('upload'); // Ambil referensi input file
+        const imageUploadInput = document.getElementById('upload'); //  input file
         const file = imageUploadInput.files[0]; // Ambil file dari input
 
         if (!file) {
@@ -75,15 +74,15 @@ Pengenalan Penyakit Daun Tomat
         }
 
         const formData = new FormData();
-        formData.append('file', file); // Pastikan 'file' adalah nama yang benar sesuai backend
+        formData.append('file', file); 
 
         resultDiv.innerHTML = '<p>Memprediksi...</p>';
 
-        fetch('/prediction', { // Pastikan URL '/prediction' benar
+        fetch('/prediction', { 
             method: 'POST',
             body: formData
         })
-        .then(response => response.json()) // Asumsi backend mengembalikan JSON
+        .then(response => response.json()) 
         .then(data => {
             if (data.error) {
                 resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
