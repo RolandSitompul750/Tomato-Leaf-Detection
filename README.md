@@ -39,8 +39,7 @@ Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah di bawah ini:
 3.  **Instal Dependensi:**
     ```bash
     pip install -r requirements.txt
-    ```
-    *(Pastikan Anda memiliki file `requirements.txt` yang berisi semua dependensi yang diperlukan seperti `flask`, `tensorflow`, `keras`, `numpy`, `opencv-python`, dll. Jika belum ada, Anda bisa membuatnya secara manual atau menggunakan `pip freeze > requirements.txt` setelah menginstal semua library yang Anda gunakan.)*
+    ```  
 
 4.  **Unduh Model:** Unduh file model `Tomato_Models.h5` dari tautan Google Drive yang disediakan di bagian [Model](#model) dan letakkan di direktori utama proyek (sejajar dengan `app.py`).
 
