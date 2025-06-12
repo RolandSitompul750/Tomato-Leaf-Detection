@@ -1,6 +1,6 @@
 # Tomato Leaf Disease Detection
 
-![Tomato Leaf Detection](https://github.com/RolandSitompul750/Tomato-Leaf-Detection/blob/main/assets/tomato_leaf_detection_banner.png?raw=true)
+![Tomato Leaf Detection](assets/tomato_leaf_detection_banner.png)
 *(Anda bisa mengganti `assets/tomato_leaf_detection_banner.png` dengan gambar yang relevan dari proyek Anda, atau hapus baris ini jika tidak ada gambar.)*
 
 Proyek ini bertujuan untuk mendeteksi penyakit pada daun tomat menggunakan model *deep learning*. Deteksi dini penyakit sangat penting untuk menjaga kesehatan tanaman tomat dan memaksimalkan hasil panen. Aplikasi ini dibangun menggunakan Flask untuk antarmuka web.
