@@ -63,3 +63,17 @@ Anda kemudian dapat mengunggah gambar daun tomat melalui antarmuka web untuk men
 ## Struktur Proyek
 
 Berikut adalah gambaran struktur direktori proyek ini:
+
+├── pycache/           
+│   └── app.cpython-312.pyc
+├── static/
+│   └── css/
+│       └── custom.css     
+├── templates/
+│   ├── index.html         
+│   ├── layout.html        
+│   └── result.html         
+├── Tomato_Models.h5       
+├── app.py                 
+└── requirements.txt       
+└── README.md           
