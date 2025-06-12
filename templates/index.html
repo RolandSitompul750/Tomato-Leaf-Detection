@@ -1,0 +1,105 @@
+{% extends "layout.html"%}
+{% block title %}
+Pengenalan Penyakit Daun Tomat
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <header class="text-white text-center">
+        <h1 class="display-4">Deteksi Penyakit Daun Tomat</h1>
+        <p class="lead mb-5">Unggah gambar daun tomat untuk mendeteksi penyakitnya. <br> Model ini dilatih untuk 10 kelas penyakit tomat dan daun sehat.</p>
+    </header>
+
+
+    <div class="row py-4">
+        <div class="col-lg-6 mx-auto">
+
+            <form action="{{ url_for('predict_image_file') }}" enctype="multipart/form-data" method="POST">
+                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                    <input class="form-control border-0" id="upload" name="file" type="file" accept="image/*">
+                    <label class="font-weight-light text-muted" for="upload" id="upload-label">Pilih file</label>
+                    <div class="input-group-append">
+                        <label class="btn btn-light m-0 rounded-pill px-4" for="upload"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Pilih file</small></label>
+                    </div>
+                </div>
+
+
+                <p class="font-italic text-white text-center">Gambar yang diunggah akan ditampilkan di bawah.</p>
+                <div class="image-area mt-4"><img alt="" class="img-fluid rounded shadow-sm mx-auto d-block"
+                                                 id="imageResult" name="imageResult"
+                                                 src="#"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <input class="btn btn-primary my-3" type="submit" value="Prediksi"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    /* ==========================================
+        SHOW UPLOADED IMAGE & NAME
+    * ========================================== */
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById('imageResult').setAttribute('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    document.getElementById('upload').addEventListener('change', function () {
+        readURL(this);
+        var fileName = this.files[0].name;
+        document.getElementById('upload-label').textContent = 'Nama file: ' + fileName;
+    });
+
+    // Bagian yang perlu diperiksa/diubah untuk pengiriman FormData
+    document.getElementById('predictButton').addEventListener('click', function() {
+        const imageUploadInput = document.getElementById('upload'); // Ambil referensi input file
+        const file = imageUploadInput.files[0]; // Ambil file dari input
+
+        if (!file) {
+            resultDiv.innerHTML = '<p style="color: red;">Mohon pilih gambar terlebih dahulu.</p>';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file); // Pastikan 'file' adalah nama yang benar sesuai backend
+
+        resultDiv.innerHTML = '<p>Memprediksi...</p>';
+
+        fetch('/prediction', { // Pastikan URL '/prediction' benar
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // Asumsi backend mengembalikan JSON
+        .then(data => {
+            if (data.error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+            } else {
+                resultDiv.innerHTML = `
+                    <p><strong>Penyakit Terprediksi:</strong> ${data.prediction}</p>
+                    <p><strong>Kepercayaan:</strong> ${(data.confidence * 100).toFixed(2)}%</p>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            resultDiv.innerHTML = '<p style="color: red;">Terjadi kesalahan saat prediksi.</p>';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html"%}
+{% block title %}
+Prediksi - Pengenalan Penyakit Daun Tomat
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <header class="text-white text-center">
+        <h1 class="display-4">Deteksi Penyakit Daun Tomat</h1>
+        <p class="lead mb-5">Anda akan melihat prediksi dari gambar yang dimasukkan.</p>
+    </header>
+
+    <header class="text-white text-center">
+        <h1 class="display-5">Hasil Prediksi</h1>
+        {% if predictions %}
+        <h2 class="display-4 text-dark font-weight-bold">{{predictions}}</h2>
+        <h3 class="display-6 text-dark font-weight-bold">{{confidence}}</h3>
+        {% else %}
+        <h2 class="display-4 text-dark font-weight-bold" style="color: red !important;">{{err}}</h2>
+        {% endif %}
+        <p class="lead mb-5"><a href="{{ url_for('main') }}" class="btn btn-info">Kembali</a></p>
+    </header>
+</div>
+{% endblock %}
